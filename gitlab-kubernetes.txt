@@ -7,6 +7,13 @@ https://docs.gitlab.com/ee/user/clusters/agent/
 
 
 https://aws.amazon.com/premiumsupport/knowledge-center/eks-cluster-connection/
+
+#aws configure
+access_key
+secret_key
+region
+
+
 aws sts get-caller-identity
 aws eks --region region update-kubeconfig --name cluster_name
 
@@ -16,7 +23,14 @@ https://docs.gitlab.com/runner/install/kubernetes.html
 
 https://stackoverflow.com/questions/65098584/kubectl-with-gitlab-eks-cluster-error-you-must-be-logged-in-to-the-server-unau
 
-
+helm repo add gitlab https://charts.gitlab.io
+helm repo update
+helm upgrade --install eks-agent gitlab/gitlab-agent \
+    --namespace gitlab-agent-eks-agent \
+    --create-namespace \
+    --set image.tag=v15.8.0 \
+    --set config.token=j5HNLQ2mkcZxRx39SxWUm9ypJemsvz8B-Q7E39A8p-QxzsUFxw \
+    --set config.kasAddress=wss://kas.gitlab.com
 
 helm repo add gitlab https://charts.gitlab.io
 helm init
